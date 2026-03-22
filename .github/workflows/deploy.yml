@@ -10,9 +10,14 @@ permissions:
   pages: write
   id-token: write
 
+# Prevent stale artifact conflicts — let the in-progress deploy finish,
+# then queue the next one (don't cancel mid-deploy).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-deploy:
